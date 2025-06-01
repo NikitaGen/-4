@@ -1,0 +1,34 @@
+import numpy as np
+
+data = np.array([
+    -2.916, -3.072, -2.998, -2.984, -2.942, -2.979, -3.178, -3.040, -2.885, -3.083,
+    -2.984, -3.138, -3.087, -3.007, -2.860, -2.986, -3.000, -2.897, -3.003, -3.030,
+    -2.962, -2.870, -2.934, -2.981, -3.142, -2.958, -2.972, -2.848, -3.057, -3.020,
+    -2.860, -2.937, -2.945, -2.951, -2.817, -2.992, -2.985, -2.848, -2.903, -3.172,
+    -2.999, -3.118, -2.803, -2.908, -3.244, -2.914, -3.073, -2.900, -3.033, -3.174
+])
+
+n = len(data)
+
+mean_val = np.sum(data) / n
+
+variance = np.sum((data - mean_val)**2) / (n - 1)
+
+std_dev = variance**0.5
+
+median = np.median(data)
+
+asymmetry = (np.sum((data - mean_val)**3) / n) / (std_dev**3)
+
+excess = (np.sum((data - mean_val)**4) / n) / (std_dev**4) - 3
+
+c, d = -3.1, -2.9
+prob = np.sum((data >= c) & (data <= d)) / n
+
+print(f" Мат. ожидание: {mean_val:.4f}")
+print(f" Дисперсия: {variance:.4f}")
+print(f" СКО: {std_dev:.4f}")
+print(f" Медиана: {median:.4f}")
+print(f" Асимметрия: {asymmetry:.4f}")
+print(f" Эксцесс: {excess:.4f}")
+print(f" Вероятность P in [c,d]: {prob:.4f}")
