@@ -1,0 +1,48 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+data = np.array([
+-2.916, -3.072, -2.998, -2.984, -2.942, -2.979, -3.178, -3.040, -2.885, -3.083, -2.984, -3.138, -3.087, -3.007, -2.860, -2.986, -3.000, -2.897, -3.003,
+-3.030, -2.962, -2.870, -2.934, -2.981, -3.142, -2.958, -2.972, -2.848, -3.057, -3.020, -2.860, -2.937, -2.945, -2.951, -2.817, -2.992, -2.985, -2.848,
+-2.903, -3.172, -2.999, -3.118, -2.803, -2.908, -3.244, -2.914, -3.073, -2.900, -3.033, -3.174
+])
+
+h = 0.05
+
+var_ryad = np.sort(data)
+print("Вариационный ряд:\n", var_ryad)
+
+n = len(data)
+f_x = var_ryad
+f_y = np.arange(1, n + 1) / n
+
+print("\nЭмпирическая функция распределения:")
+for ValX, ValY in zip(f_x, f_y):
+    print(f"{ValX:.3f} : {ValY:.3f}")
+
+bins = np.arange(min(data), max(data) + h, h)
+freq, _ = np.histogram(data, bins=bins)
+rel_freq = freq / len(data)
+midpoints = (bins[:-1] + bins[1:]) / 2
+
+plt.subplot(1, 2, 2)
+plt.step(f_x, f_y, where='post', label='Эмпирическая функция распределения', color='green')
+plt.xlabel('x')
+plt.ylabel('F*_n')
+plt.title('Эмпирическая функция распределения')
+plt.grid(True)
+plt.legend()
+
+plt.subplot(1, 2, 1)
+plt.bar(bins[:-1], rel_freq, width=h, align='edge', alpha=0.7, label='Гистограмма')
+plt.plot(midpoints, rel_freq, 'r-o', label='Полигон частот')
+plt.xlabel('Значения')
+plt.ylabel('Относительная частота')
+plt.title('Гистограмма и полигон частот')
+plt.legend()
+plt.grid(True)
+
+plt.figure(figsize=(20, 8))
+
+plt.tight_layout()
+plt.show()
